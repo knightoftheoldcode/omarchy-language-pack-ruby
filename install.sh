@@ -9,6 +9,7 @@ if [ -d "$PLUGIN_PATH/$PLUGIN_NAME" ]; then
     mkdir -p $BIN_PATH
   fi
   echo "PLUGIN $PLUGIN_PATH/$PLUGIN_NAME/bin/*"
+
   # Installing scripts for plugin
   for file in "$PLUGIN_PATH"/"$PLUGIN_NAME"/bin/*; do
     if [ -f "$file" ]; then
@@ -16,10 +17,14 @@ if [ -d "$PLUGIN_PATH/$PLUGIN_NAME" ]; then
       ln -snf "$file" "$BIN_PATH/$(basename "$file")"
     fi
   done
+
   # Installing hyperland configs for plugin
   for file in "$PLUGIN_PATH"/"$PLUGIN_NAME"/hypr/*; do
     if [ -f "$file" ]; then
       echo "source = $file" >>"$HYPRLAND_CONFIG_FILE"
     fi
   done
+
+  mise use -g ruby@latest
+  mise ls
 fi
